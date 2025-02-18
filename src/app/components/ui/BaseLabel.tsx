@@ -10,7 +10,7 @@ export default function BaseLabel(props: IBaseLabelProps) {
   const { className, labelTitle, labelDesc, ...other } = props;
   return (
     <>
-      <InputLabel className={`text-blue-600 ${className}`} {...other} required>
+      <InputLabel className={`text-blue-600 ${className}`} {...other}>
         {labelTitle}
       </InputLabel>
       <InputDescription>{labelDesc}</InputDescription>

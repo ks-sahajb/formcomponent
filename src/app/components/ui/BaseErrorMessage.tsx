@@ -6,9 +6,10 @@ export type IBaseErrorMessageProps = TextProps & {
 };
 
 export default function BaseErrorMessage(props: IBaseErrorMessageProps) {
-  const { error, size = "xs" } = props;
+  const { error, className, size = "xs", ...other } = props;
+
   return (
-    <Text className="!text-red-500" size={size}>
+    <Text className={`!text-danger ${className}`} size={size} {...other}>
       {error?.message}
     </Text>
   );

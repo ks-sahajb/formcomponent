@@ -5,12 +5,7 @@ export type IBaseInputProps = InputProps &
   InputHTMLAttributes<HTMLInputElement>;
 
 export default function BaseInput(props: IBaseInputProps) {
-  const { className, radius="sm", ...other } = props;
+  const { radius = "sm", ...other } = props;
 
-  return (
-    <Input
-      radius={radius}
-      {...other}
-    />
-  );
+  return <Input radius={radius} {...other} />;
 }
