@@ -1,60 +1,51 @@
-import {
-  ElementProps,
-  Input,
-  InputProps,
-  InputStylesNames,
-} from "@mantine/core";
+import { Input, InputProps, InputStylesNames } from "@mantine/core";
 import { cva, VariantProps } from "class-variance-authority";
+import clsx from "clsx";
+import { FC, InputHTMLAttributes } from "react";
 
-const inputcva = cva("border", {
+const inputcva = cva("!border", {
   variants: {
     intent: {
-      primary: ["!font-medium", "!text-gray-900", "!border-primary"],
+      primary: "!font-medium !text-gray-900 !border-primary",
     },
     inputsize: {
-      small: ["text-sm", "py-1", "px-2"],
-      medium: ["text-base", "py-2", "px-4"],
+      small: "!text-sm !py-1 !px-2",
+      medium: "!text-base !py-2 !px-4",
     },
     disabled: {
       false: null,
-      true: ["opacity-50", "!border-none"],
+      true: "opacity-50 !border-none",
     },
   },
-  compoundVariants: [
-    {
-      intent: "primary",
-      disabled: false,
-      className:
-        "!transition delay-150 duration-300 hover:!bg-indigo-100 focus:!border-2 ",
-    },
-    { intent: "primary", inputsize: "medium", className: "uppercase" },
-  ],
+  defaultVariants: {
+    intent: "primary",
+    inputsize: "medium",
+    disabled: false,
+  },
 });
 
-export type IBaseInputProps = InputProps &
-  ElementProps<"input", keyof InputProps> &
-  VariantProps<typeof inputcva> & {
-    classNames?: Partial<Record<InputStylesNames, string>>;
+export type IInputPropsExtend = InputHTMLAttributes<HTMLInputElement> &
+  InputProps & {
+    classNames?: Partial<Record<InputStylesNames, string>> | undefined;
   };
 
-const BaseInput = (props: IBaseInputProps) => {
-  const {
-    intent = "primary",
-    inputsize,
-    disabled = false,
-    classNames,
-    ...other
-  } = props;
+export type IBaseInputCVA = VariantProps<typeof inputcva>;
 
-  const { input = "", ...classes } = classNames || {};
+export type IBaseInputProps = IInputPropsExtend & IBaseInputCVA;
+
+const BaseInput: FC<IBaseInputProps> = (props) => {
+  const { intent, inputsize, disabled = false, classNames, ...other } = props;
 
   return (
     <Input
       classNames={{
-        input: input + " " + inputcva({ intent, inputsize, disabled }),
-        ...classes,
+        ...classNames,
+        input: clsx(
+          inputcva({ intent, inputsize, disabled }),
+          classNames?.input
+        ),
       }}
-      disabled={disabled ?? false}
+      disabled={disabled}
       {...other}
     />
   );
