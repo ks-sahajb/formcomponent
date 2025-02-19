@@ -1,51 +1,47 @@
-import { InputDescription, InputLabel, InputLabelProps } from "@mantine/core";
+import {
+  InputDescription,
+  InputLabel,
+  InputLabelProps,
+  InputLabelStylesNames,
+} from "@mantine/core";
 import { cva, VariantProps } from "class-variance-authority";
-import React from "react";
+import clsx from "clsx";
+import React, { FC } from "react";
 
-const labelcva = cva("border", {
+const labelcva = cva("!text-sm", {
   variants: {
     intent: {
-      primary: ["!font-medium", "!text-gray-900", "!border-primary"],
-    },
-    labelsize: {
-      small: ["text-sm", "py-1", "px-2"],
-      medium: ["text-base", "py-2", "px-4"],
-    },
-    disabled: {
-      false: null,
-      true: ["opacity-50", "!border-none"],
+      primary: "!text-black",
+      secondary: "!text-secondary",
     },
   },
-  compoundVariants: [
-    {
-      intent: "primary",
-      disabled: false,
-      className:
-        "!transition delay-150 duration-300 hover:!bg-indigo-100 focus:!border-2 ",
-    },
-    { intent: "primary", labelsize: "medium", className: "uppercase" },
-  ],
+  compoundVariants: [],
+  defaultVariants: {
+    intent: "primary",
+  },
 });
 
-export type IBaseLabelProps = InputLabelProps &
-  VariantProps<typeof labelcva> & {
-    labelTitle: string;
-    labelDesc?: string;
-  };
+export type ILabelPropsExtend = InputLabelProps & {
+  classNames?: Partial<Record<InputLabelStylesNames, string>>;
+  labelTitle: string;
+  labelDesc?: string;
+};
 
-export default function BaseLabel(props: IBaseLabelProps) {
-  const {
-    labelTitle,
-    intent = "primary",
-    disabled,
-    labelsize,
-    labelDesc,
-    ...other
-  } = props;
+export type IBaseLabelCVA = VariantProps<typeof labelcva>;
+
+export type IBaseLabelProps = ILabelPropsExtend & IBaseLabelCVA;
+
+const BaseLabel: FC<IBaseLabelProps> = (props) => {
+  const { labelTitle, intent, classNames, labelDesc, ...other } = props;
+
   return (
     <>
       <InputLabel
-        classNames={{ label: labelcva({ intent, labelsize, disabled }) }}
+        classNames={{
+          ...classNames,
+          label: clsx(labelcva({ intent }), classNames?.label),
+          required: clsx(labelcva({ intent }), classNames?.required),
+        }}
         {...other}
       >
         {labelTitle}
@@ -53,4 +49,6 @@ export default function BaseLabel(props: IBaseLabelProps) {
       <InputDescription>{labelDesc}</InputDescription>
     </>
   );
-}
+};
+
+export default BaseLabel;

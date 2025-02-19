@@ -3,10 +3,10 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import { FC, InputHTMLAttributes } from "react";
 
-const inputcva = cva("!border", {
+const inputcva = cva("!border-none !ring-1 !rounded-lg", {
   variants: {
     intent: {
-      primary: "!font-medium !text-gray-900 !border-primary",
+      primary: "focus:!ring-2 focus:!ring-primary",
     },
     inputsize: {
       small: "!text-sm !py-1 !px-2",
@@ -14,7 +14,7 @@ const inputcva = cva("!border", {
     },
     disabled: {
       false: null,
-      true: "opacity-50 !border-none",
+      true: "!opacity-50 !border-none",
     },
   },
   defaultVariants: {
@@ -34,7 +34,7 @@ export type IBaseInputCVA = VariantProps<typeof inputcva>;
 export type IBaseInputProps = IInputPropsExtend & IBaseInputCVA;
 
 const BaseInput: FC<IBaseInputProps> = (props) => {
-  const { intent, inputsize, disabled = false, classNames, ...other } = props;
+  const { intent, inputsize, disabled, classNames, ...other } = props;
 
   return (
     <Input

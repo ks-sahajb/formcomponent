@@ -1,9 +1,24 @@
-import { Checkbox, CheckboxProps } from "@mantine/core";
-import React from "react";
+import { Checkbox, CheckboxProps, CheckboxStylesNames } from "@mantine/core";
+import clsx from "clsx";
+import React, { FC } from "react";
 
-export type IBaseCheckBoxProps = CheckboxProps;
+export type IBaseCheckBoxProps = CheckboxProps & {
+  classNames?: Partial<Record<CheckboxStylesNames, string>>;
+};
 
-export default function BaseCheckbox(props: IBaseCheckBoxProps) {
-  const { ...other } = props;
-  return <Checkbox {...other}></Checkbox>;
-}
+const BaseCheckbox: FC<IBaseCheckBoxProps> = (props) => {
+  const { classNames, ...other } = props;
+
+  return (
+    <Checkbox
+      classNames={{
+        ...classNames,
+        label: clsx("!text-black !text-base", classNames?.label),
+        input: clsx("focus:!ring-2 focus:!ring-primary", classNames?.input),
+      }}
+      {...other}
+    ></Checkbox>
+  );
+};
+
+export default BaseCheckbox;

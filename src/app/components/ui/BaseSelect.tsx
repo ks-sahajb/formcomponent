@@ -1,9 +1,27 @@
-import { Select, SelectProps } from "@mantine/core";
+import { Select, SelectProps, SelectStylesNames } from "@mantine/core";
+import clsx from "clsx";
 import React from "react";
 
-export type IBaseSelectProps = SelectProps;
+export type IBaseSelectProps = SelectProps & {
+  classNames?: Partial<Record<SelectStylesNames, string>>;
+};
 
 export default function BaseSelect(props: IBaseSelectProps) {
-  const { className, ...other } = props;
-  return <Select className={`${className}`} {...other} />;
+  const { classNames, ...other } = props;
+
+  return (
+    <Select
+      classNames={{
+        ...classNames,
+        input: clsx(
+          "!border-none !ring-1 focus:!ring-2 focus:!ring-primary",
+          classNames?.input
+        ),
+        dropdown: clsx("!text-black", classNames?.dropdown),
+        option: clsx("hover:!bg-primary-light", classNames?.option),
+        section: clsx("!bg-primary-light", classNames?.section),
+      }}
+      {...other}
+    />
+  );
 }
