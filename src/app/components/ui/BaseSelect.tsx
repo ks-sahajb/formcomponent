@@ -1,12 +1,12 @@
 import { Select, SelectProps, SelectStylesNames } from "@mantine/core";
 import clsx from "clsx";
-import React from "react";
+import React, { FC } from "react";
 
 export type IBaseSelectProps = SelectProps & {
   classNames?: Partial<Record<SelectStylesNames, string>>;
 };
 
-export default function BaseSelect(props: IBaseSelectProps) {
+const BaseSelect: FC<IBaseSelectProps> = (props) => {
   const { classNames, ...other } = props;
 
   return (
@@ -24,4 +24,6 @@ export default function BaseSelect(props: IBaseSelectProps) {
       {...other}
     />
   );
-}
+};
+
+export default BaseSelect;
