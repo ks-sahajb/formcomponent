@@ -4,4 +4,9 @@
   --color-primary: #800080;
   --color-danger: red;
   --color-secondary: gray;
+  --color-primary-light: #8000801c;
+}
+
+.hello {
+  background-color: #8000801c;
 }
