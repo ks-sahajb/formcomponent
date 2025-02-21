@@ -1,32 +1,26 @@
 import { ReactNode } from "react";
 import BaseErrorMessage from "../../ui/BaseErrorMessage";
-import BaseLabel from "../../ui/BaseLabel";
+import BaseLabel, { IBaseLabelProps } from "../../ui/BaseLabel";
 
 export type IFormFieldProps = {
-  label: { title: string; description?: string };
+  label: IBaseLabelProps;
   children: ReactNode;
-  error?: Error;
+  errors?: string;
 };
 
 export default function FormField(props: IFormFieldProps) {
-  const {
-    label: { title, description },
-    error,
-    children,
-  } = props;
+  const { label, errors, children } = props;
 
   return (
-    <>
+    <div>
       <BaseLabel
-        labelTitle={title}
-        labelDesc={description}
         classNames={{ label: "text-primary", required: "!text-danger" }}
-        required
+        {...label}
       />
 
       {children}
 
-      <BaseErrorMessage error={error} className="!px-1" />
-    </>
+      <BaseErrorMessage errors={errors} className="!px-1" />
+    </div>
   );
 }
