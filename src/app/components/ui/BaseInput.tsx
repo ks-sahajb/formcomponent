@@ -4,6 +4,7 @@ import {
   InputStylesNames,
   PasswordInput,
   PasswordInputProps,
+  PasswordInputStylesNames,
 } from "@mantine/core";
 import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
@@ -36,7 +37,9 @@ const inputcva = cva(
 export type IInputPropsExtend = InputHTMLAttributes<HTMLInputElement> &
   InputProps &
   PasswordInputProps & {
-    classNames?: Partial<Record<InputStylesNames, string>> | undefined;
+    classNames?:
+      | Partial<Record<InputStylesNames, string>>
+      | Partial<Record<PasswordInputStylesNames, string>>;
   };
 
 export type IBaseInputCVA = VariantProps<typeof inputcva>;
@@ -51,13 +54,13 @@ const BaseInput: FC<IBaseInputProps> = (props) => {
       <PasswordInput
         type={type}
         classNames={{
+          visibilityToggle: clsx("hover:!bg-primary-light"),
           ...classNames,
           input: clsx(
             "focus-within:!ring-2 focus-within:!bg-white focus-within:!ring-primary",
             inputcva({ intent, inputsize, disabled }),
             classNames?.input
           ),
-          visibilityToggle: "hover:!bg-primary-light",
         }}
         disabled={disabled}
         {...other}
