@@ -8,7 +8,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import React, { FC } from "react";
 
-const labelcva = cva("!text-sm", {
+const labelcva = cva("!font-semibold", {
   variants: {
     intent: {
       primary: "!text-black",

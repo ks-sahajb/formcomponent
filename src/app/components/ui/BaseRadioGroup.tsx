@@ -1,15 +1,15 @@
 import { Group, RadioGroup, RadioGroupProps } from "@mantine/core";
-import React, { ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import BaseRadio from "./BaseRadio";
 
 export type IBaseRadioGroupProps = RadioGroupProps & {
   radioData: {
     label: string;
-    className?: string;
+    labelClasses?: string;
   }[];
 };
 
-export default function BaseRadioGroup(props: IBaseRadioGroupProps) {
+const BaseRadioGroup: FC<IBaseRadioGroupProps> = (props) => {
   const { radioData, ...other } = props;
   return (
     <>
@@ -19,7 +19,7 @@ export default function BaseRadioGroup(props: IBaseRadioGroupProps) {
             <BaseRadio
               label={radio.label}
               value={radio.label}
-              className={radio.className}
+              classNames={{ label: radio.labelClasses }}
               key={index}
             />
           ))}
@@ -27,4 +27,6 @@ export default function BaseRadioGroup(props: IBaseRadioGroupProps) {
       </RadioGroup>
     </>
   );
-}
+};
+
+export default BaseRadioGroup;

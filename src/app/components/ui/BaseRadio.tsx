@@ -34,7 +34,7 @@ const BaseRadio: FC<IBaseRadioProps> = (props) => {
     <Radio
       classNames={{
         ...classNames,
-        label: clsx("!text-black !text-base", classNames?.label),
+        label: clsx("text-black !text-base", classNames?.label),
         radio: clsx(radiocva({ intent, disabled }), classNames?.radio),
       }}
       disabled={disabled}

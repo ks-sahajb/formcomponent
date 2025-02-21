@@ -2,15 +2,15 @@ import { Text, TextProps } from "@mantine/core";
 import React, { FC } from "react";
 
 export type IBaseErrorMessageProps = TextProps & {
-  error?: Error;
+  errors?: string;
 };
 
 const BaseErrorMessage: FC<IBaseErrorMessageProps> = (props) => {
-  const { error, className, ...other } = props;
+  const { errors, className, ...other } = props;
 
   return (
-    <Text className={`!text-danger ${className}`} {...other}>
-      {error?.message}
+    <Text className={`!text-danger !text-sm ${className}`} {...other}>
+      {errors}
     </Text>
   );
 };

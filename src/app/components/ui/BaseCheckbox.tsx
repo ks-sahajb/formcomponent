@@ -14,7 +14,7 @@ const BaseCheckbox: FC<IBaseCheckBoxProps> = (props) => {
       classNames={{
         ...classNames,
         label: clsx("!text-black !text-base", classNames?.label),
-        input: clsx("focus:!ring-2 focus:!ring-primary", classNames?.input),
+        input: clsx("focus:ring-2 focus:ring-primary", classNames?.input),
       }}
       {...other}
     ></Checkbox>

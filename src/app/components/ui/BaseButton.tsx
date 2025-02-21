@@ -1,9 +1,9 @@
 import { Button, ButtonProps, ButtonStylesNames } from "@mantine/core";
 import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
-import React, { FC } from "react";
+import React, { ButtonHTMLAttributes, FC } from "react";
 
-const buttoncva = cva("!cursor-pointer !text-white", {
+const buttoncva = cva("!cursor-pointer !w-fit !text-white", {
   variants: {
     intent: {
       primary: "!bg-primary hover:!bg-primary-hover",
@@ -29,9 +29,10 @@ const buttoncva = cva("!cursor-pointer !text-white", {
   },
 });
 
-export type IButtonPropsExtent = ButtonProps & {
-  classNames?: Partial<Record<ButtonStylesNames, string>> | undefined;
-};
+export type IButtonPropsExtent = ButtonProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    classNames?: Partial<Record<ButtonStylesNames, string>> | undefined;
+  };
 
 export type IBaseButtonCVA = VariantProps<typeof buttoncva>;
 
